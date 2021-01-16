@@ -11,20 +11,33 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:fluttertesting/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
+  testWidgets('Text input smoke test', (WidgetTester tester) async {
     await tester.pumpWidget(MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  //Initial state
+    expect(find.text('Enter your name'), findsOneWidget);
+    expect(find.text(''), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
+
+    //Type "Name" and press +
+    await tester.enterText(find.byType(TextField), "Name");
+    await tester.pump();
+
     await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(find.text('Name'), findsNWidgets(2));
+    expect(find.text('Enter your name'), findsNothing);
+
+    //Clear text field and press +
+    await tester.enterText(find.byType(TextField), "");
+    await tester.pump();
+
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump();
+
+    expect(find.text(''), findsNWidgets(1));
+    expect(find.text('Enter your name'), findsOneWidget);
+
   });
 }

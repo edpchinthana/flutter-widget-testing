@@ -51,11 +51,10 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String label="";
-  String name;
+  String name="";
   final _formKey = GlobalKey<FormState>();
 
   void onSubmit(){
-    print("onsubmit ");
     setState(() {
       label = name;
     });
@@ -72,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              label != ""?label:"Enter your name ",
+              label != ""?label:"Enter your name",
               style: new TextStyle(
                   fontSize: 20
               ),
